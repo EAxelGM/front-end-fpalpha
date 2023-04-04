@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-  baseURL: "http://localhost:8000/api/v1",
+  baseURL: "https://back-end-books-x7gq7zmvhq-uc.a.run.app/api/v1",
 });
 
 export default http;
