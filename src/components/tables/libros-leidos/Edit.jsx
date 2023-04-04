@@ -3,10 +3,12 @@ import { useState } from "react";
 import Formulario from "./Form";
 import moment from "moment";
 import axios from "@/helpers/configAxios";
+import { useSnackbar } from "@brancol/react-snackbar";
 
 const Edit = ({ refreshFunction = () => {}, id = "" }) => {
   const [openModal, setOpenModal] = useState(false);
   const [itemSelect, setItemSelect] = useState(null);
+  const snackbar = useSnackbar();
 
   const getData = async () => {
     try {
@@ -20,6 +22,7 @@ const Edit = ({ refreshFunction = () => {}, id = "" }) => {
       setOpenModal(true);
     } catch (error) {
       console.log({ error });
+      snackbar.showDanger(error.response?.data?.message || error.message);
     }
   };
 
@@ -31,8 +34,10 @@ const Edit = ({ refreshFunction = () => {}, id = "" }) => {
 
       refreshFunction();
       setOpenModal(false);
+      snackbar.showSuccess(data.message || "Acción realizada con exito");
     } catch (error) {
       console.log({ error });
+      snackbar.showDanger(error.response?.data?.message || error.message);
     }
     //console.log({ data });
   };

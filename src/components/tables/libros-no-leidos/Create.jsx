@@ -2,8 +2,11 @@ import { Dialog, DialogTitle } from "@mui/material";
 import { useState } from "react";
 import Formulario from "./Form";
 import axios from "@/helpers/configAxios";
+import { useSnackbar } from "@brancol/react-snackbar";
+
 const Create = ({ refreshFunction = () => {} }) => {
   const [openModal, setOpenModal] = useState(false);
+  const snackbar = useSnackbar();
 
   const handleActionSubmit = async (data) => {
     try {
@@ -12,8 +15,10 @@ const Create = ({ refreshFunction = () => {} }) => {
       });
       refreshFunction();
       setOpenModal(false);
+      snackbar.showSuccess(data.message || "Acción realizada con exito");
     } catch (error) {
       console.log({ error });
+      snackbar.showDanger(error.response?.data?.message || error.message);
     }
   };
 

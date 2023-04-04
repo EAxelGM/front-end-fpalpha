@@ -7,10 +7,12 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import axios from "@/helpers/configAxios";
+import { useSnackbar } from "@brancol/react-snackbar";
 
 const Remove = ({ refreshFunction = () => {}, id = "" }) => {
   const [openModal, setOpenModal] = useState(false);
   const [itemSelect, setItemSelect] = useState(null);
+  const snackbar = useSnackbar();
 
   const getData = async () => {
     try {
@@ -27,8 +29,10 @@ const Remove = ({ refreshFunction = () => {}, id = "" }) => {
       const { data } = await axios.delete(`books-read/${id}`);
       refreshFunction();
       setOpenModal(false);
+      snackbar.showSuccess(data.message || "Acción realizada con exito");
     } catch (error) {
       console.log({ error });
+      snackbar.showDanger(error.response?.data?.message || error.message);
     }
   };
 

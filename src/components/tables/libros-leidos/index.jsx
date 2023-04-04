@@ -5,9 +5,11 @@ import Remove from "./Remove";
 import axios from "@/helpers/configAxios";
 import { useState, useEffect } from "react";
 import moment from "moment";
+import { useSnackbar } from "@brancol/react-snackbar";
 
 const LibrosLeidos = () => {
   const [items, setItems] = useState([]);
+  const snackbar = useSnackbar();
 
   const headers = [
     { name: "Titulo", value: "title" },
@@ -46,6 +48,7 @@ const LibrosLeidos = () => {
       );
     } catch (error) {
       console.log({ error });
+      snackbar.showDanger(error.response?.data?.message || error.message);
     }
   };
 

@@ -3,8 +3,11 @@ import { VscBook, VscCheckAll } from "react-icons/vsc";
 import { FaBalanceScaleLeft } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "@/helpers/configAxios";
+import { useSnackbar } from "@brancol/react-snackbar";
+
 const Estadisticas = () => {
   const [dataEstadisticas, setDataEstadisticas] = useState({});
+  const snackbar = useSnackbar();
 
   useEffect(() => {
     getData();
@@ -16,6 +19,7 @@ const Estadisticas = () => {
       setDataEstadisticas(data.data);
     } catch (error) {
       console.log({ error });
+      snackbar.showDanger(error.response?.data?.message || error.message);
     }
   };
 
