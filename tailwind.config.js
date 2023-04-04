@@ -7,14 +7,15 @@ module.exports = {
 
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/flowbite/**/*.js",
   ],
   theme: {
     extend: {
       colors: {
-        primary: "#004142",
+        primary: "#019b9d",
         secondary: "#363636",
       },
     },
   },
-  plugins: [],
+  plugins: [require("flowbite/plugin")],
 };
